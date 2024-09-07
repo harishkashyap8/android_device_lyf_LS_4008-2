@@ -1,0 +1,8 @@
+
+on init
+    mkdir /oem 0771 system system
+
+on post-fs
+    chown system system /oem
+    chmod 0771 /oem
+

@@ -1,0 +1,43 @@
+import /init.sc8830_base.rc
+import /init.oem.rc
+
+on boot
+    chown system system /dev/sprd_bm
+    chmod 0444 /dev/iq_mem
+    chmod 777 /sys/class/flash_test/flash_test/flash_value
+    chmod 777 /dev/gtp_proximity
+
+    chown system system /sys/class/leds/red_bl/high_time
+    chown system system /sys/class/leds/red_bl/low_time
+    chown system system /sys/class/leds/red_bl/rising_time
+    chown system system /sys/class/leds/red_bl/falling_time
+    chown system system /sys/class/leds/red_bl/on_off
+
+    chown system system /sys/class/leds/green_bl/high_time
+    chown system system /sys/class/leds/green_bl/low_time
+    chown system system /sys/class/leds/green_bl/rising_time
+    chown system system /sys/class/leds/green_bl/falling_time
+    chown system system /sys/class/leds/green_bl/on_off
+
+    chown system system /sys/class/leds/blue_bl/high_time
+    chown system system /sys/class/leds/blue_bl/low_time
+    chown system system /sys/class/leds/blue_bl/rising_time
+    chown system system /sys/class/leds/blue_bl/falling_time
+    chown system system /sys/class/leds/blue_bl/on_off
+    #set TCP buffer thresholds for each network type
+    write /proc/sys/net/core/rmem_max 8388608
+
+service slog /system/bin/slog -t
+    group root sdcard_r
+
+#enable_dns   
+service enable_dns /system/bin/ext_data.sh -e   
+user root   
+disabled   
+oneshot   
+  
+#disable_dns   
+service disable_dns /system/bin/ext_data.sh -c   
+user root   
+disabled   
+oneshot
